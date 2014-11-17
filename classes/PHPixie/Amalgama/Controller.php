@@ -51,7 +51,7 @@ class Controller extends \PHPixie\Controller {
     }
 
     public function __($str, $params = array()) {
-        return $this->pixie->amalgama->translate($str, $params);
+        return $this->pixie->amalgama->__($str, $params);
     }
 
 }

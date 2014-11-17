@@ -10,7 +10,7 @@ class Helper extends \PHPixie\View\Helper {
     );
 
     public function translate($str, $params = array()) {
-        return $this->pixie->amalgama->translate($str, $params);
+        return $this->pixie->amalgama->__($str, $params);
     }
 
     public function getCurrentLang() {

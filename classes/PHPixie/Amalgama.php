@@ -41,7 +41,7 @@ class Amalgama {
         }
     }
 
-    public function translate($str, $params = array()) {
+    public function __($str, $params = array()) {
         $lang = $this->lang;
         $translation = $str;
 
