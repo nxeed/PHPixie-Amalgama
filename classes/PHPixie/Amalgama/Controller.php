@@ -4,28 +4,45 @@ namespace PHPixie\Amalgama;
 
 class Controller extends \PHPixie\Controller {
 
-	public function before() {
-		$uri = $this->request->server('REQUEST_URI');
-		$langParam = $this->request->param('lang');
-		$langCookie = $this->pixie->cookie->get('lang');
-		$langSegment = explode('/', trim($uri, '/'))[0];
-		$langDefault = $this->pixie->amalgama->getDefaultLang();
+    public function before() {
+        $langParam = $this->request->param('lang');
+        $langDefault = $this->pixie->amalgama->getDefaultLang();
+        
+        if (!$langParam) {
+            $this->pixie->amalgama->lang = $langDefault;
+            return;
+        }
 
-		$this->pixie->amalgama->lang = $langParam;
+        $path = parse_url($this->request->server('REQUEST_URI'), PHP_URL_PATH);
+        $query = parse_url($this->request->server('REQUEST_URI'), PHP_URL_QUERY);
 
-		if ($langCookie) {
-			if ($langCookie != $langDefault && $langParam != $langSegment) {
-				header("location: /{$langCookie}{$uri}");
-				die();
-			}
-			$this->pixie->cookie->set('lang', $langParam);
-		}
+        $langCookie = $this->pixie->cookie->get('lang');
+        $langSegment = explode('/', trim($path, '/'))[0];
+        $langList = $this->pixie->amalgama->getLangList();
 
-		$this->pixie->cookie->set('lang', $langParam);
-	}
+        if ($query) {
+            $query = '?' . $query;
+        }
 
-	public function __($str, $params = array()) {
-		return $this->pixie->amalgama->translate($str, $params);
-	}
+        $this->pixie->amalgama->lang = $langParam;
+
+        if (in_array($langCookie, $langList)) {
+            if ($langCookie != $langDefault && $langParam != $langSegment) {
+                header("location: /{$langCookie}{$path}{$query}");
+                die();
+            }
+            $this->pixie->cookie->set('lang', $langParam);
+        }
+
+        if ($langParam != $langDefault) {
+            $this->pixie->cookie->set('lang', $langParam);
+        } else {
+            $this->pixie->cookie->remove('lang');
+        }
+    }
+
+    public function __($str, $params = array()) {
+        return $this->pixie->amalgama->translate($str, $params);
+    }
 
 }
