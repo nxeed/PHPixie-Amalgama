@@ -56,7 +56,6 @@ class Amalgama {
         }
 
         if (!empty($params)) {
-
             $translation = str_replace(array('%', '<?>'), array('%%', '%s'), $translation);
             array_unshift($params, $translation);
             $translation = call_user_func_array('sprintf', $params);
