@@ -1,0 +1,27 @@
+{
+    "name": "phpixie/amalgama",
+    "description": "PHPixie internationalization library",
+    "keywords": ["i18n", "internationalization"],
+    "type": "library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Nxeed",
+            "email": "nxeed@ya.ru",
+            "homepage": "https://github.com/nxeed"
+        }
+    ],
+    "require": {
+        "phpixie/core": "2.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "PHPixie": "classes/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    }
+}
