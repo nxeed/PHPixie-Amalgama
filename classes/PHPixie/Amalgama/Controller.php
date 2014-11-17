@@ -12,9 +12,11 @@ class Controller extends \PHPixie\Controller {
             $this->pixie->amalgama->lang = $langDefault;
             return;
         }
-
-        $path = parse_url($this->request->server('REQUEST_URI'), PHP_URL_PATH);
-        $query = parse_url($this->request->server('REQUEST_URI'), PHP_URL_QUERY);
+        $uri = $this->request->server('REQUEST_URI');
+        $path = parse_url($uri, PHP_URL_PATH);
+        $path = preg_replace('/^'.preg_quote($this->pixie->basepath, '/').'/', '', $path);
+        
+        $query = parse_url($uri, PHP_URL_QUERY);
 
         $langCookie = $this->pixie->cookie->get('lang');
         $langSegment = explode('/', trim($path, '/'))[0];
@@ -28,7 +30,7 @@ class Controller extends \PHPixie\Controller {
 
         if (in_array($langCookie, $langList)) {
             if ($langCookie != $langDefault && $langParam != $langSegment) {
-                header("location: /{$langCookie}{$path}{$query}");
+                header("location: {$this->pixie->basepath}{$langCookie}{$path}{$query}");
                 die();
             }
             $this->pixie->cookie->set('lang', $langParam);

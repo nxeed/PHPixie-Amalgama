@@ -38,17 +38,22 @@ class Route extends \PHPixie\Route {
 
         $url = str_replace(array('(', ')'), '', $url);
 
+        
+        
         if (isset($params['lang'])) {
             $langDefault = $this->pixie->amalgama->getDefaultLang();
+            $url = preg_replace('/^'.preg_quote($this->basepath, '/').'/', '', $url);
             $urlArr = explode('/', trim($url, '/'));
 
             if ($urlArr[0] == $langDefault) {
                 array_shift($urlArr);
             }
-
-            $url = '/' . implode('/', $urlArr);
+            
+            $url = $this->basepath . implode('/', $urlArr);
         }
 
+        
+        
         if ($absolute) {
             $url = $protocol . '://' . $_SERVER['HTTP_HOST'] . $url;
         }
