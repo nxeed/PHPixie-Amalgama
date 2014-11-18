@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'list' => array('ru', 'kk', 'en'),
+    'list' => array('kk', 'ru', 'en'),
     'default' => 'kk',
     'autorouting' => true,
 	'autoroutingExcept' => '^admin_'

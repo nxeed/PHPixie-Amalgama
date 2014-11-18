@@ -55,7 +55,7 @@ class Helper extends \PHPixie\View\Helper {
 			array_unshift($pathArr, $lang);
 		}
 
-		return $this->pixie->basepath . implode('/', $pathArr) . $query;
+		return $this->pixie->basepath . trim(implode('/', $pathArr), '/') . $query;
 	}
 
 }
