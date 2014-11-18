@@ -44,8 +44,9 @@ class Route extends \PHPixie\Route {
             $langDefault = $this->pixie->amalgama->getDefaultLang();
             $url = preg_replace('/^'.preg_quote($this->basepath, '/').'/', '', $url);
             $urlArr = explode('/', trim($url, '/'));
+			$langSegment = $urlArr[0];
 
-            if ($urlArr[0] == $langDefault) {
+            if ($langSegment == $langDefault) {
                 array_shift($urlArr);
             }
             

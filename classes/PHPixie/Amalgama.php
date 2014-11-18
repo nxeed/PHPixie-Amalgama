@@ -1,73 +1,52 @@
 <?php
 
-namespace PHPixie;
+namespace PHPixie\Amalgama\Extension;
 
-/**
- * @property-read \PHPixie\Amalgama\Extension\Autorouting $autorouting
- */
-class Amalgama {
+class Autorouting {
 
-    protected $pixie;
-    protected $config;
-    protected $extensionClasses = array(
-        'autorouting' => '\PHPixie\Amalgama\Extension\Autorouting'
-    );
-    protected $extensionInstances = array();
-    public $lang;
+	protected $pixie;
+	protected $amalgama;
+	protected $config;
 
-    public function getLangList() {
-        return $this->config['list'];
-    }
+	protected function filterRouteNames($name) {
+		$rule = $this->config['autoroutingExcept'];
+		return !preg_match('/' . $rule . '/', $name);
+	}
 
-    public function getDefaultLang() {
-        return $this->config['default'];
-    }
+	public function run() {
+		if (!$this->config['autorouting']) {
+			return;
+		}
 
-    public function __get($name) {
-        if (isset($this->extensionInstances[$name])) {
-            return $this->extensionInstances[$name];
-        }
+		if ($this->config['autoroutingExcept']) {
+			$routeNames = array_filter(array_keys($this->pixie->config->get('routes')), array($this, 'filterRouteNames'));
+		}
 
-        if (isset($this->extensionClasses[$name])) {
-            return $this->extensionInstances[$name] = new $this->extensionClasses[$name]($this->pixie, $this, $this->config);
-        }
+		$langList = $this->amalgama->getLangList();
+		$langDefault = $this->amalgama->getDefaultLang();
 
-        throw new \Exception("Property {$name} not found on " . get_class($this));
-    }
+		foreach ($routeNames as $name) {
+			$route = $this->pixie->router->get($name);
 
-    public function runExtensions() {
-        foreach ($this->extensionClasses as $key => $val) {
-            $this->$key->run();
-        }
-    }
+			$rule = is_array($route->rule) ? $route->rule[0] : $route->rule;
+			$params = is_array($route->rule) ? $route->rule[1] : array();
+			$defaults = is_array($route->defaults) ? $route->defaults : array();
 
-    public function __($str, $params = array()) {
-        $lang = $this->lang;
-        $translation = $str;
+			$newRule = '(/<lang>)' . ltrim($rule, '/');
+			$newParams = array_merge($params, array('lang' => implode('|', $langList)));
+			$newDefaults = array_merge($defaults, array('lang' => $langDefault));
 
-        if (!$lang) {
-            throw new \Exception('Current language was not defined');
-        }
+			$route->rule = array($newRule, $newParams);
+			$route->defaults = $newDefaults;
 
-        $file = $this->pixie->config->get('amalgama/' . $lang);
+			$this->pixie->router->add($route);
+		}
+	}
 
-        if ($file && isset($file[$str])) {
-            $translation = $file[$str];
-        }
-
-        if (!empty($params)) {
-            $translation = str_replace(array('%', '<?>'), array('%%', '%s'), $translation);
-            array_unshift($params, $translation);
-            $translation = call_user_func_array('sprintf', $params);
-        }
-
-        return $translation;
-    }
-
-    public function __construct($pixie) {
-        $this->pixie = $pixie;
-        $this->pixie->assets_dirs[] = dirname(dirname(dirname(__FILE__))) . '/assets/';
-        $this->config = $this->pixie->config->get('amalgama');
-    }
+	public function __construct(\PHPixie\Pixie $pixie, \PHPixie\Amalgama $amalgama, array $config) {
+		$this->pixie = $pixie;
+		$this->amalgama = $amalgama;
+		$this->config = $config;
+	}
 
 }
