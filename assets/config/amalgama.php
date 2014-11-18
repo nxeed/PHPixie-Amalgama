@@ -3,5 +3,6 @@
 return array(
     'list' => array('kk', 'ru', 'en'),
     'default' => 'kk',
-    'autorouting' => '^admin_'
+    'autorouting' => true,
+	'autoroutingExcept' => '^admin_'
 );
