@@ -86,12 +86,12 @@ return array(
 ```
 To use this module:
 ```
-// in view
+// view example
 <div><?php $__('Hello World!; ?></div>
-<div><?php $__('Hello <?>!', array('Nxeed'); ?></div>
+<div><?php $__('Hello <?>!', array($user->name); ?></div>
 ```
 ```
-// lang switcher
+// lang switcher example
 <?php foreach($this->helper->getLangList() as $lang) : ?>
   <?php if ($lang == $this->helper->getCurrentLang()) : ?>
     <span><?php echo $lang; ?></span>
@@ -101,7 +101,7 @@ To use this module:
 <?php endforeach; ?>
 ```
 ```
-// examle of using paginate module
+// Paginate example
 ...
 $page = $this->request->param('page');
 
@@ -111,7 +111,7 @@ $pager->set_url_route('comments', array('lang' => $this->lang));
 ...
 ```
 ```
-// validation
+// Validate example
 $validator->field('username')
   ->rule('filled')
   ->error($this->__('Field <?> must not be empty', array($this->__('username'))));
