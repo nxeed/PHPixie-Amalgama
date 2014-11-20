@@ -46,7 +46,7 @@ protected $modules = array(
   'amalgama' => '\PHPixie\Amalgama'
 );
 ```
-* Override your base controller *Pixie.php*
+* Override your base controller
 ``` php
 <?php
 
