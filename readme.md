@@ -5,8 +5,8 @@ Internationalization Module for PHPixie
 * Params in translations
 * Auto routes modify
 
-To setup this module:
-
+Setup
+--------------------
 * Define this package in "require" section of *composer.json*
 ```
 "phpixie/amalgama": "2.*@dev"
@@ -84,7 +84,8 @@ return array(
   'Hello <?>!' => 'Привет <?>!'
 );
 ```
-To use this module:
+Use
+--------------------
 ```
 // view example
 <div><?php $__('Hello World!; ?></div>
