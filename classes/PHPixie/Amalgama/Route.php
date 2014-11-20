@@ -2,15 +2,43 @@
 
 namespace PHPixie\Amalgama;
 
+/**
+ * Routing class to extract and parse request parameters from the URL.
+ * 
+ * @package Amalgama
+ */
 class Route extends \PHPixie\Route {
 
+	/**
+	 * Pixie Dependancy Container
+	 * @var \PHPixie\Pixie
+	 */
 	protected $pixie;
 
+	/**
+	 * Constructs a route(added pixie)
+	 *
+	 * @param string $basepath URL path base
+	 * @param string $name Name of the route
+	 * @param mixed $rule Rule for this route
+	 * @param array $defaults Default parameters for the route
+	 * @param \PHPixie\Pixie Pixie Dependancy Container
+	 * @param mixed $methods Methods to restrict this route to.
+	 *                       Either a single method or an array of them.
+	 */
 	public function __construct($basepath, $name, $rule, $defaults, $pixie, $methods = null) {
 		parent::__construct($basepath, $name, $rule, $defaults, $methods);
 		$this->pixie = $pixie;
 	}
 
+	/**
+	 * Generates a url for a route(added language param handler)
+	 *
+	 * @param array $params    Parameters to substitute in the route
+	 * @param bool $absolute   Whether to return an absolute url
+	 * @param string $protocol	Protocol to use for absolute url
+	 * @return string Generated url
+	 */
 	public function url($params = array(), $absolute = false, $protocol = 'http') {
 
 		if (is_callable($this->rule)) {
