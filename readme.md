@@ -88,7 +88,7 @@ Use
 --------------------
 ```
 // view example
-<div><?php $__('Hello World!; ?></div>
+<div><?php $__('Hello World!); ?></div>
 <div><?php $__('Hello <?>!', array($user->name); ?></div>
 ```
 ```
