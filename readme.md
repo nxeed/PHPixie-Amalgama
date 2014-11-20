@@ -105,8 +105,8 @@ To use this module:
 ...
 $page = $this->request->param('page');
 
-$quotes = $this->pixie->orm->get('comment');
-$pager = $this->pixie->paginate->orm($quotes, $page, 10);
+$comments = $this->pixie->orm->get('comment');
+$pager = $this->pixie->paginate->orm($comments, $page, 10);
 $pager->set_url_route('comments', array('lang' => $this->lang));
 ...
 ```
