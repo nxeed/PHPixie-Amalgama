@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'Hello World!' => 'Cәлем әлем!',
-    'Hello <?>!' => 'Cәлем <?>!'
+	'Hello World!' => 'Cәлем әлем!',
+	'Hello <?>!' => 'Cәлем <?>!'
 );

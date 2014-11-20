@@ -14,9 +14,9 @@ class Pixie extends \PHPixie\Pixie {
 	 *
 	 * @return \PHPixie\View\Helper
 	 */
-    public function view_helper() {
-        return new \PHPixie\Amalgama\View\Helper($this);
-    }
+	public function view_helper() {
+		return new \PHPixie\Amalgama\View\Helper($this);
+	}
 
 	/**
 	 * Constructs a route
@@ -28,21 +28,21 @@ class Pixie extends \PHPixie\Pixie {
 	 *                       Either a single method or an array of them.
 	 * @return \PHPixie\Route
 	 */
-    public function route($name, $rule, $defaults, $methods = null) {
-        return new \PHPixie\Amalgama\Route($this->basepath, $name, $rule, $defaults, $this, $methods);
-    }
+	public function route($name, $rule, $defaults, $methods = null) {
+		return new \PHPixie\Amalgama\Route($this->basepath, $name, $rule, $defaults, $this, $methods);
+	}
 
 	/**
 	 * Perform some initialization after bootstrap finished
 	 *
 	 * @return void
 	 */
-    protected function after_bootstrap() {
-        if (!isset($this->modules['amalgama'])) {
-            throw new \Exception('Module amalgama was not defined');
-        }
+	protected function after_bootstrap() {
+		if (!isset($this->modules['amalgama'])) {
+			throw new \Exception('Module amalgama was not defined');
+		}
 
-        $this->amalgama->runExtensions();
-    }
+		$this->amalgama->runExtensions();
+	}
 
 }

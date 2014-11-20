@@ -13,13 +13,13 @@ class Controller extends \PHPixie\Controller {
 	 * Amalgama module instance
 	 * @var \PHPixie\Amalgama 
 	 */
-    protected $amalgama;
+	protected $amalgama;
 	
 	/**
 	 * Current language
 	 * @var string 
 	 */
-    protected $lang;
+	protected $lang;
 
 	/**
 	 * This method is called before the action.
@@ -27,21 +27,21 @@ class Controller extends \PHPixie\Controller {
 	 *
 	 * @return void
 	 */
-    public function before() {
-        $this->amalgama = $this->pixie->amalgama;
-        
-        $langParam = $this->request->param('lang');
-        $langDefault = $this->pixie->amalgama->getDefaultLang();
-        
-        if (!$langParam) {
-            $this->amalgama->lang = $langDefault;
-            $this->lang = $langDefault;
-            return;
-        }
+	public function before() {
+		$this->amalgama = $this->pixie->amalgama;
+		
+		$langParam = $this->request->param('lang');
+		$langDefault = $this->pixie->amalgama->getDefaultLang();
+		
+		if (!$langParam) {
+			$this->amalgama->lang = $langDefault;
+			$this->lang = $langDefault;
+			return;
+		}
 
-        $this->amalgama->lang = $langParam;
-        $this->lang = $langParam;
-    }
+		$this->amalgama->lang = $langParam;
+		$this->lang = $langParam;
+	}
 
 	/**
 	 * Translates the specified string
@@ -56,8 +56,8 @@ class Controller extends \PHPixie\Controller {
 	 * @return string
 	 * @throws \Exception If current languge was not defined
 	 */
-    public function __($str, $params = array()) {
-        return $this->pixie->amalgama->__($str, $params);
-    }
+	public function __($str, $params = array()) {
+		return $this->pixie->amalgama->__($str, $params);
+	}
 
 }
