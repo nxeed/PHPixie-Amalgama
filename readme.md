@@ -28,7 +28,7 @@ return array(
   'autoroutingExcept' => '^admin_'
 );
 ```
-* Expand your *Pixie.php*
+* Override your *Pixie.php*
 ```
 namespace App;
 
@@ -46,7 +46,7 @@ protected $modules = array(
   'amalgama' => '\PHPixie\Amalgama'
 );
 ```
-* Expand your base controller *Pixie.php*
+* Override your base controller *Pixie.php*
 ```
 <?php
 
