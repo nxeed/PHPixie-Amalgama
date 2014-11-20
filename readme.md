@@ -74,7 +74,7 @@ class Page extends \PHPixie\Amalgama\Controller {
   ),
 ),
 ```
-* Add translations files under */assets/config/amalgama*
+* Add translation files under */assets/config/amalgama*
 ```
 //ru.php
 <?php
