@@ -2,9 +2,9 @@
 
 return array(
 	// The list of languages
-    'list' => array('ru', 'kk', 'en'),
+    'list' => array('en', 'ru', 'kk'),
 	// Default language
-    'default' => 'kk',
+    'default' => 'en',
 	// For using autorouting extension
     'autorouting' => true,
 	// Names of routes for except them from autorouting extension
