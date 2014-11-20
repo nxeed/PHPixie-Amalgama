@@ -8,15 +8,15 @@ Internationalization Module for PHPixie
 Setup
 --------------------
 * Define this package in "require" section of *composer.json*
-```
+``` json
 "phpixie/amalgama": "2.*@dev"
 ```
 * Update packages
-```
+``` bash
 php composer.phar update -o  --prefer-dist
 ```
 * Add a config file under */assets/config/amalgama.php*
-```
+``` php
 return array(
   // The list of languages
   'list' => array('en', 'ru', 'kk'),
@@ -29,7 +29,7 @@ return array(
 );
 ```
 * Override your *Pixie.php*
-```
+``` php
 namespace App;
 
 class Pixie extends \PHPixie\Amalgama\Pixie {
@@ -40,14 +40,14 @@ class Pixie extends \PHPixie\Amalgama\Pixie {
 }
 ```
 * Define module in your *Pixie.php*
-```
+``` php
 protected $modules = array(
   ...
   'amalgama' => '\PHPixie\Amalgama'
 );
 ```
 * Override your base controller *Pixie.php*
-```
+``` php
 <?php
 
 namespace App;
@@ -64,7 +64,7 @@ class Page extends \PHPixie\Amalgama\Controller {
 }
 ```
 * Define routes(If you don't want use autorouting extension)
-```
+``` php
 'default' => array(
   array('(/<lang>)(/<controller>(/<action>(/<id>)))', array('lang' => '(en|ru)')
   array(
@@ -75,7 +75,7 @@ class Page extends \PHPixie\Amalgama\Controller {
 ),
 ```
 * Add translation files under */assets/config/amalgama*
-```
+``` php
 //ru.php
 <?php
 
@@ -86,12 +86,12 @@ return array(
 ```
 Use
 --------------------
-```
+``` php
 // view example
 <div><?php $__('Hello World!); ?></div>
 <div><?php $__('Hello <?>!', array($user->name); ?></div>
 ```
-```
+``` php
 // lang switcher example
 <?php foreach($this->helper->getLangList() as $lang) : ?>
   <?php if ($lang == $this->helper->getCurrentLang()) : ?>
@@ -101,7 +101,7 @@ Use
   <?php endif; ?>
 <?php endforeach; ?>
 ```
-```
+``` php
 // Paginate example
 ...
 $page = $this->request->param('page');
@@ -111,7 +111,7 @@ $pager = $this->pixie->paginate->orm($comments, $page, 10);
 $pager->set_url_route('comments', array('lang' => $this->lang));
 ...
 ```
-```
+``` php
 // Validate example
 $validator->field('username')
   ->rule('filled')
