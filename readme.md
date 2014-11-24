@@ -84,7 +84,7 @@ return array(
   'Hello <?>!' => 'Привет <?>!'
 );
 ```
-Use
+Usage
 --------------------
 ``` php
 // view example
